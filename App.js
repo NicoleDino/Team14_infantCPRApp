@@ -83,7 +83,7 @@ function App() {
           name="More"
           component={More}
           options={{
-            title: 'More Resources', // Change the title here if needed
+            title: 'More Resources',
           }}
         />
       </Stack.Navigator>
