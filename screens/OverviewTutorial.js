@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 const OverviewTutorial = ({ navigation }) => {
   const handleNextPress = () => {
-    // Navigate to the TutorialCPR screen
     navigation.navigate('TutorialCPR');
   };
 

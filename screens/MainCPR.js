@@ -4,7 +4,6 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 function MainCPR({ navigation }) {
   const handleCheckResultsPress = () => {
-    // Navigate to the Results screen
     navigation.navigate('Results');
   };
 
@@ -28,16 +27,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FCE4EC', // Pink background for the outer container
+    backgroundColor: '#FCE4EC', 
   },
   roundedContainer: {
     width: '90%',
     height: '70%',
-    backgroundColor: '#FFD1DC', // Lighter pink background for the inner content
+    backgroundColor: '#FFD1DC', 
     borderRadius: 20,
-    borderWidth: 4, // Increased border thickness
+    borderWidth: 4, 
     borderStyle: 'dashed',
-    borderColor: '#FFF', // White border color
+    borderColor: '#FFF', 
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,

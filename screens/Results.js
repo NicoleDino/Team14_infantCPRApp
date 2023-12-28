@@ -3,7 +3,6 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 function Results({ navigation, route }) {
-  // Extract the scores from the route params
   const { mainScore, compressionsScore, breathsScore } = route.params || {
     mainScore: 0,
     compressionsScore: 0,
@@ -11,7 +10,6 @@ function Results({ navigation, route }) {
   };
 
   const handleBackToDashboardPress = () => {
-    // Navigate back to the Dashboard
     navigation.navigate('Dashboard');
   };
 

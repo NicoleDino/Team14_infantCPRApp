@@ -7,8 +7,8 @@ import OverviewTutorial from './screens/OverviewTutorial/';
 import PracticeCPR from './screens/PracticeCPR/';
 import MainCPR from './screens/MainCPR/';
 import Results from './screens/Results';
-import More from './screens/More'; // Import More
-import TutorialCPR from './screens/TutorialCPR'; // Import TutorialCPR
+import More from './screens/More';
+import TutorialCPR from './screens/TutorialCPR';
 
 const Stack = createStackNavigator();
 
@@ -19,31 +19,31 @@ function App() {
         initialRouteName="Home"
         screenOptions={{
           headerStyle: {
-            backgroundColor: '#FF7FAA', // Darker pastel pink for the header
+            backgroundColor: '#FF7FAA',
           },
-          headerTintColor: '#FFFFFF', // White text color for the header
-          headerTitleAlign: 'center', // Center the header title
+          headerTintColor: '#FFFFFF', 
+          headerTitleAlign: 'center', 
         }}
       >
         <Stack.Screen
           name="Home"
           component={HomeScreen}
           options={{
-            title: 'INFANTECH: Infant CPR Training', // Change the title here
+            title: 'INFANTECH: Infant CPR Training', 
           }}
         />
         <Stack.Screen
           name="Dashboard"
           component={DashboardScreen}
           options={{
-            title: 'Dashboard', // Change the title here
+            title: 'Dashboard', 
           }}
         />
         <Stack.Screen
           name="OverviewTutorial"
           component={OverviewTutorial}
           options={{
-            title: 'What is Infant CPR Training?', // Change the title here if needed
+            title: 'What is Infant CPR Training?', 
           }}
         />
         {/* New Screen for Tutorial CPR */}
@@ -51,7 +51,7 @@ function App() {
           name="TutorialCPR"
           component={TutorialCPR}
           options={{
-            title: 'Infant CPR Trainings', // Change the title here if needed
+            title: 'Infant CPR Trainings', 
           }}
         />
         {/* New Screen for Practice CPR */}
@@ -59,7 +59,7 @@ function App() {
           name="PracticeCPR"
           component={PracticeCPR}
           options={{
-            title: 'Test Your Skills and Practice', // Change the title here if needed
+            title: 'Test Your Skills and Practice', 
           }}
         />
         {/* New Screen for Main CPR */}
@@ -67,7 +67,7 @@ function App() {
           name="MainCPR"
           component={MainCPR}
           options={{
-            title: 'Perform Infant CPR', // Change the title here if needed
+            title: 'Perform Infant CPR', 
           }}
         />
         {/* New Screen for Results */}
@@ -75,7 +75,7 @@ function App() {
           name="Results"
           component={Results}
           options={{
-            title: 'Your CPR Training Results', // Change the title here if needed
+            title: 'Your CPR Training Results', 
           }}
         />
         {/* New Screen for More */}

@@ -59,10 +59,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FCE4EC', // Lighter pastel pink for the dashboard background
+    backgroundColor: '#FCE4EC', 
   },
   rectangle: {
-    width: width - 40, // Almost fits the screen
+    width: width - 40, 
     borderRadius: 15,
     borderWidth: 2,
     borderStyle: 'dashed',
@@ -75,12 +75,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#FF7FAA', // Darker shade of pastel pink for the title
+    color: '#FF7FAA', 
   },
   subtitle: {
     fontSize: 14,
     marginBottom: 50,
-    color: '#333', // Darker shade of pastel pink for the subtitle
+    color: '#333', 
     textAlign: 'center',
   },
   cprGif: {
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   buttonContainer: {
-    flexDirection: 'column', // Change to 'column' for vertical alignment
+    flexDirection: 'column', 
     justifyContent: 'space-around',
     width: '80%',
   },
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
-    textAlign: 'center', // Center the text on the button
+    textAlign: 'center', 
   },
 });
 

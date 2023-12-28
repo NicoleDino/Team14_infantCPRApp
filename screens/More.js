@@ -4,17 +4,14 @@ import { View, Text, TouchableOpacity, StyleSheet, Linking } from 'react-native'
 
 function More({ navigation }) {
   const handleBackToDashboardPress = () => {
-    // Navigate back to the Dashboard
     navigation.navigate('Dashboard');
   };
 
   const handleOpenLink = (url) => {
-    // Open the provided link
     Linking.openURL(url);
   };
 
   const handleOpenFeedbackForm = () => {
-    // Open the feedback form link (replace with your actual feedback form link)
     const feedbackFormUrl = 'https://example.com/feedback-form';
     Linking.openURL(feedbackFormUrl);
   };
@@ -59,7 +56,7 @@ const styles = StyleSheet.create({
   },
   link: {
     fontSize: 16,
-    color: '#4285F4', // Example link color
+    color: '#4285F4', 
     marginBottom: 10,
   },
   backButton: {

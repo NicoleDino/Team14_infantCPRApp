@@ -27,7 +27,7 @@ const videos = [
     url: 'https://www.youtube.com/embed/iyjL3eZlP90?autoplay=1',
     instructions: 'Instructions for yet another video.',
   },
-  // Add more videos as needed
+
 ];
 
 function Tutorial({ navigation }) {
@@ -101,7 +101,7 @@ function Tutorial({ navigation }) {
 
 const styles = StyleSheet.create({
   screen: {
-    backgroundColor: '#FCE4EC', // Set the background color to pastel pink
+    backgroundColor: '#FCE4EC',
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,

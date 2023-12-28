@@ -4,7 +4,6 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 function PracticeCPR({ navigation }) {
   const handleNextPress = () => {
-    // Navigate to the MainCPR screen
     navigation.navigate('MainCPR');
   };
 

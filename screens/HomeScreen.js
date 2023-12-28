@@ -9,13 +9,13 @@ function HomeScreen({ navigation }) {
       <View style={styles.logoSection}>
         {/* First Logo */}
         <Image
-          source={require('../assets/INFANTECH.png')} // Update with the path to your first logo
+          source={require('../assets/INFANTECH.png')}
           style={styles.logo1}
         />
 
         {/* Second Logo */}
         <Image
-          source={require('../assets/logo.png')} // Update with the path to your second logo
+          source={require('../assets/logo.png')} 
           style={styles.logo2}
         />
       </View>
@@ -36,36 +36,36 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F9D5E5', // Pastel pink background color
+    backgroundColor: '#F9D5E5', 
   },
   logoSection: {
     marginBottom: 10,
     alignItems: 'center',
   },
   logo1: {
-    width: 350, // Adjust the width according to your design
-    height: 350, // Adjust the height according to your design
+    width: 350, 
+    height: 350, 
   },
   logo2: {
-    width: 380, // Adjust the width according to your design
-    height: 85, // Adjust the height according to your design
-    marginBottom: 10, // Increase this value to move logo2 upward
+    width: 380, 
+    height: 85, 
+    marginBottom: 10, 
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#FF7FAA', // Darker shade of pastel pink for the title
-    textAlign: 'center', // Center the text
+    color: '#FF7FAA', 
+    textAlign: 'center',
   },
   button: {
-    backgroundColor: '#FF7FAA', // Darker pastel pink for the button
+    backgroundColor: '#FF7FAA', 
     padding: 10,
     borderRadius: 5,
     marginBottom: 220,
   },
   buttonText: {
-    color: '#FFFFFF', // White text color for the button text
+    color: '#FFFFFF', 
     fontSize: 16,
     fontWeight: 'bold',
   },
