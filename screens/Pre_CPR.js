@@ -16,17 +16,17 @@ function PreMainCPR({ navigation }) {
         <Text style={styles.instructions}>
           Follow these steps during training:
           {"\n\n"}
-          1. Perform the PROPER chest compressions
+          1. Perform the PROPER chest compressions.
           {"\n\n"}
-          2. Tilt head for rescue breaths, do it appropriately
+          2. Tilt head of infant manikin for rescue breaths, do it accordingly.
           {"\n\n"}
-          3. The LED lights that you will observe will serve as visual feedbacks if your performance is correct (green) or wrong (red)
+          3. The LED lights that you will observe represents visual feedbacks if your performance is correct (green) or wrong (red).
           {"\n\n"}
-          4. Focus on the feedback on the app to see if what you are doing is proper
+          4. Focus on the feedback on the app to see if what you are doing is proper.
           {"\n\n"}
-          5. Treat the infant manikin with care, since it also has its life, which is in your hands
+          5. Treat the infant manikin with care, since it also has its life, which is in your hands.
           {"\n\n"}
-          6. Don't forget to enjoy this knowledgeable training experience
+          6. Don't forget to enjoy this knowledgeable training experience!
         </Text>
       </View>
 
