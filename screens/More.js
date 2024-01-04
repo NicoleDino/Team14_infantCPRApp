@@ -18,22 +18,20 @@ function More({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {/* Links to Resources */}
       <Text style={styles.title}>Additional Resources:</Text>
-      <TouchableOpacity onPress={() => handleOpenLink('https://www.example.com/printable-guide')}>
-        <Text style={styles.link}>Printable CPR Guide - manual</Text>
+      <TouchableOpacity onPress={() => handleOpenLink('https://raisingchildren.net.au/newborns/safety/cpr/cpr-for-babies')}>
+        <Text style={styles.link}>CPR for babies under 12 months: in pictures</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleOpenLink('https://www.example.com/additional-videos')}>
-        <Text style={styles.link}>Additional CPR Videos</Text>
+      <TouchableOpacity onPress={() => handleOpenLink('https://www.redcross.org/take-a-class/cpr/performing-cpr/child-baby-cpr')}>
+        <Text style={styles.link}>Child & Baby CPR - Red Cross</Text>
       </TouchableOpacity>
-
-      {/* Feedback Form */}
+      <TouchableOpacity onPress={() => handleOpenLink('https://www.youtube.com/watch?v=tK-gwp4dPmw')}>
+        <Text style={styles.link}>Additional Infant CPR Video</Text>
+      </TouchableOpacity>
       <Text style={styles.title}>Feedback Form:</Text>
       <TouchableOpacity onPress={handleOpenFeedbackForm}>
         <Text style={styles.link}>Provide Feedback - add link to form</Text>
       </TouchableOpacity>
-
-      {/* Back Button */}
       <TouchableOpacity style={styles.backButton} onPress={handleBackToDashboardPress}>
         <Text style={styles.backButtonText}>Back to Dashboard</Text>
       </TouchableOpacity>

@@ -10,11 +10,9 @@ function MainCPR({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.roundedContainer}>
-        {/* Content inside the rounded container goes here */}
         <Text style={styles.text}>Main CPR Content</Text>
       </View>
 
-      {/* Check Results Button */}
       <TouchableOpacity style={styles.checkResultsButton} onPress={handleCheckResultsPress}>
         <Text style={styles.checkResultsButtonText}>Check Results!</Text>
       </TouchableOpacity>

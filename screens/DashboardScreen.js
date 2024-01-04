@@ -1,4 +1,4 @@
-// screens/DashboardScreen.js
+// DashboardScreen.js
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
 
@@ -13,8 +13,8 @@ function DashboardScreen({ navigation }) {
     navigation.navigate('PracticeCPR');
   };
 
-  const handleMainCPRPress = () => {
-    navigation.navigate('MainCPR');
+  const handlePre_CPRPress = () => {
+    navigation.navigate('Pre_CPR');
   };
 
   const handleMorePress = () => {
@@ -23,10 +23,8 @@ function DashboardScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {/* Rounded rectangle with dashed border */}
       <View style={styles.rectangle}>
         <Text style={styles.title}>Welcome, CPR Trainees!</Text>
-        {/* Add GIFs and animations here */}
         <Image
           source={require('../assets/cprgif.gif')}
           style={styles.cprGif}
@@ -42,7 +40,7 @@ function DashboardScreen({ navigation }) {
           <TouchableOpacity style={styles.button} onPress={handlePracticeCPRPress}>
             <Text style={styles.buttonText}>Infant CPR Training: Practice Mode</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={handleMainCPRPress}>
+          <TouchableOpacity style={styles.button} onPress={handlePre_CPRPress}>
             <Text style={styles.buttonText}>Infant CPR Training: Test your Skills</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={handleMorePress}>

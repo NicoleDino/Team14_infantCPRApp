@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 
 const OverviewTutorial = ({ navigation }) => {
   const handleNextPress = () => {
@@ -7,40 +7,48 @@ const OverviewTutorial = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      {/* Main Title */}
-      <Text style={styles.mainTitle}>Infant CPR Training: The Basics</Text>
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={styles.container}>
+        <Text style={styles.mainTitle}>Infant CPR Training</Text>
+        <View style={styles.roundedContainer}>
+          <View style={styles.overviewContainer}>
+            <Image
+              source={require('../assets/cprbaby.png')}
+              style={styles.image}
+              resizeMode="cover"
+            />
+          </View>
 
-      {/* Rounded Container */}
-      <View style={styles.roundedContainer}>
-        {/* Overview Video Section */}
-        <View style={styles.overviewContainer}>
-          <Text style={styles.overviewTitle}>Overview Video</Text>
-          {/* Include a Video Player for the introductory video here */}
-          {/* You can use a library like react-native-video or a WebView for YouTube videos */}
+          <View style={styles.basicsContainer}>
+            <Text style={styles.imageText}>
+              Infant CPR training is a specific instructional program created to teach 
+              caregivers/parents/medical trainees the necessary abilities to save an infant's 
+              life in an emergency. It includes teaching people how to identify and manage 
+              respiratory distress, apply effective chest compressions, and give rescue breaths, 
+              empowering them to confidently undertake life-saving actions in emergency situations.
+              {'\n'}{'\n'}Having completed infant CPR training, those who care for them will be 
+              well-equipped to handle emergency scenarios and possibly save a baby's life. 
+              A step-by-step explanation is provided on "Infant CPR Training: The Basics," 
+              which equips users with the necessary information and self-assurance to conduct 
+              infant CPR effectively. Essential principles are covered in this course, including 
+              how to identify respiratory distress signals and perform rescue breaths and chest compressions 
+              correctly. Press next to learn more about it!
+            </Text>
+          </View>
+
+          <TouchableOpacity style={styles.nextButton} onPress={handleNextPress}>
+            <Text style={styles.nextButtonText}>Next</Text>
+          </TouchableOpacity>
         </View>
-
-        {/* Basics of Infant CPR Section */}
-        <View style={styles.basicsContainer}>
-          <Text style={styles.basicsTitle}>Basics of Infant CPR - Text and Visual Aids</Text>
-          {/* Provide text instructions and illustrations here */}
-          <Text style={styles.instructions}>
-            Play a short introductory video explaining the importance of infant CPR.
-            Include real-life scenarios to emphasize the need for immediate action.
-          </Text>
-          {/* You can add visual aids or images here */}
-        </View>
-
-        {/* Next Button */}
-        <TouchableOpacity style={styles.nextButton} onPress={handleNextPress}>
-          <Text style={styles.nextButtonText}>Next</Text>
-        </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    flexGrow: 1,
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -55,7 +63,7 @@ const styles = StyleSheet.create({
     padding: 20,
     margin: 10,
     width: '90%',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   mainTitle: {
     fontSize: 24,
@@ -68,12 +76,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     alignItems: 'center',
   },
-  overviewTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    color: '#FF7FAA',
-  },
   basicsContainer: {
     alignItems: 'center',
     marginHorizontal: 20,
@@ -83,10 +85,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
     color: '#FF7FAA',
-  },
-  instructions: {
-    textAlign: 'center',
-    marginBottom: 10,
   },
   nextButton: {
     backgroundColor: '#FF7FAA',
@@ -100,6 +98,18 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  image: {
+    width: '100%',
+    height: 320,
+    marginBottom: 10,
+    borderRadius: 20,
+  },
+  imageText: {
+    fontSize: 16,
+    color: '#FF7FAA',
+    marginTop: 10,
+    textAlign: 'justify'
   },
 });
 

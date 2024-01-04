@@ -15,12 +15,10 @@ function Results({ navigation, route }) {
 
   return (
     <View style={styles.container}>
-      {/* Display the CPR scores */}
       <Text style={styles.scoreText}>Overall Score: {mainScore}%</Text>
       <Text style={styles.scoreText}>Chest Compressions Score: {compressionsScore}%</Text>
       <Text style={styles.scoreText}>Rescue Breaths Score: {breathsScore}%</Text>
 
-      {/* Back to Dashboard Button */}
       <TouchableOpacity style={styles.backButton} onPress={handleBackToDashboardPress}>
         <Text style={styles.backButtonText}>Back to Dashboard</Text>
       </TouchableOpacity>

@@ -10,11 +10,9 @@ function PracticeCPR({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.roundedContainer}>
-        {/* Content inside the rounded container goes here */}
         <Text style={styles.text}>Practice CPR Content</Text>
       </View>
 
-      {/* Next Button */}
       <TouchableOpacity style={styles.nextButton} onPress={handleNextPress}>
         <Text style={styles.nextButtonText}>Next</Text>
       </TouchableOpacity>

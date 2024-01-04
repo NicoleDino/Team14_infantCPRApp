@@ -5,15 +5,13 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      {/* Logo Section */}
       <View style={styles.logoSection}>
-        {/* First Logo */}
-        <Image
-          source={require('../assets/INFANTECH.png')}
-          style={styles.logo1}
-        />
-
-        {/* Second Logo */}
+        <View style={styles.roundedContainer}>
+          <Image
+            source={require('../assets/INFANTECH.png')}
+            style={styles.logo1}
+          />
+        </View>
         <Image
           source={require('../assets/logo.png')} 
           style={styles.logo2}
@@ -42,14 +40,29 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignItems: 'center',
   },
+  roundedContainer: {
+    borderRadius: 200, 
+    overflow: 'hidden',
+    marginBottom: 10,
+    backgroundColor: '#FFE3EF', 
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    elevation: 6,
+  },
   logo1: {
-    width: 350, 
-    height: 350, 
+    width: 250, 
+    height: 250, 
   },
   logo2: {
     width: 380, 
     height: 85, 
     marginBottom: 10, 
+    marginTop: 20
   },
   title: {
     fontSize: 20,

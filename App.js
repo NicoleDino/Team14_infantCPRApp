@@ -1,3 +1,4 @@
+// App.js
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -9,6 +10,7 @@ import MainCPR from './screens/MainCPR/';
 import Results from './screens/Results';
 import More from './screens/More';
 import TutorialCPR from './screens/TutorialCPR';
+import Pre_CPR from './screens/Pre_CPR'; // Import the new screen
 
 const Stack = createStackNavigator();
 
@@ -51,7 +53,7 @@ function App() {
           name="TutorialCPR"
           component={TutorialCPR}
           options={{
-            title: 'Infant CPR Trainings', 
+            title: 'Infant CPR Tutorials', 
           }}
         />
         {/* New Screen for Practice CPR */}
@@ -60,6 +62,14 @@ function App() {
           component={PracticeCPR}
           options={{
             title: 'Test Your Skills and Practice', 
+          }}
+        />
+        {/* New Screen for Pre-Main CPR */}
+        <Stack.Screen
+          name="Pre_CPR"
+          component={Pre_CPR}
+          options={{
+            title: 'Prepare for Infant CPR Training', 
           }}
         />
         {/* New Screen for Main CPR */}
