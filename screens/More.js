@@ -12,7 +12,7 @@ function More({ navigation }) {
   };
 
   const handleOpenFeedbackForm = () => {
-    const feedbackFormUrl = 'https://example.com/feedback-form';
+    const feedbackFormUrl = 'https://forms.gle/1P6wD72uCGcoTZUp8';
     Linking.openURL(feedbackFormUrl);
   };
 
@@ -30,7 +30,7 @@ function More({ navigation }) {
       </TouchableOpacity>
       <Text style={styles.title}>Feedback Form:</Text>
       <TouchableOpacity onPress={handleOpenFeedbackForm}>
-        <Text style={styles.link}>✉️ Provide Feedback - add link to feedback form</Text>
+        <Text style={styles.link}>✉️ Provide your Feedback</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.backButton} onPress={handleBackToDashboardPress}>
         <Text style={styles.backButtonText}>Back to Dashboard</Text>
