@@ -4,10 +4,15 @@ import io from 'socket.io-client';
 
 function MainCPR({ navigation }) {
   const [socket, setSocket] = useState(null);
-  const [data, setData] = useState('');
+  const [data, setData] = useState({
+    flow_rate: 0,
+    status: '',
+    realtime_pressure: 0
+  });  
+  const [thresholdMessage, setThresholdMessage] = useState('');
 
   useEffect(() => {
-    const newSocket = io('http://192.168.68.109:5000', { transports: ['websocket'] });
+    const newSocket = io('http://192.168.68.106:5000', { transports: ['websocket'] });
     setSocket(newSocket);
 
     newSocket.on('connect_error', (error) => {
@@ -23,17 +28,23 @@ function MainCPR({ navigation }) {
 
   useEffect(() => {
     if (socket != null) {
-      socket.on('connect', () => {
-        console.log('Connected to Flask server');
-      });
-  
       socket.on('arduino_data', (receivedData) => {
         console.log('Received data from server:', receivedData);
-        // Extract information from the received data
-        const { flow_rate, peak_flow_rate, frequency, status } = receivedData;
-  
-        // Update your UI with the received information
-        setData(`Flow Rate: ${flow_rate} mL/s\nPeak Flow Rate: ${peak_flow_rate} mL/s\nFrequency: ${frequency.toFixed(2)} Hz\nStatus: ${status}`);
+        setData({
+            flow_rate: receivedData.flow_rate,
+            status: receivedData.status,
+            realtime_pressure: receivedData.realtime_pressure
+        });
+    });    
+
+      socket.on('realtime_pressure', (pressure) => {
+        console.log('Received real-time pressure from server:', pressure);
+        setData((prevData) => ({ ...prevData, realtime_pressure: pressure }));
+      });
+
+      socket.on('threshold_message', (message) => {
+        console.log('Received threshold message from server:', message);
+        setThresholdMessage(message);
       });
     }
   }, [socket]);
@@ -46,8 +57,10 @@ function MainCPR({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.title}>Perform Infant CPR!</Text>
       <View style={styles.roundedContainer}>
-        {/* Display data immediately */}
-        <Text style={styles.text}>{data}</Text>
+        <Text style={styles.text}>Flow Rate: {data.flow_rate} mL/s</Text>
+        <Text style={styles.text}>Flow Status: {data.status}</Text>
+        <Text style={styles.text}>Detected Pressure: {data.realtime_pressure} PSI</Text>
+        <Text style={styles.text}>Pressure Status: {thresholdMessage}</Text>
       </View>
 
       <TouchableOpacity style={styles.checkResultsButton} onPress={handleCheckResultsPress}>
@@ -79,6 +92,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 18,
     color: 'black',
+    marginBottom: 10,
   },
   checkResultsButton: {
     backgroundColor: '#FF7FAA',
