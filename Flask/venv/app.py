@@ -6,7 +6,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, cors_allowed_origins="*")  # Allow connections from any origin
 
-allowed_ip = '192.168.68.106'
+allowed_ip = '192.168.68.107'
 
 # Global variables for peak flow rate and last pulse time
 peak_flow_rate = 0.0
@@ -30,11 +30,13 @@ def receive_data():
         socketio.emit('realtime_pressure', pressure)
 
         # Check if pressure is within the threshold range
-        threshold_min = -0.70
-        threshold_max = -0.60
+        threshold_min = -0.65
+        threshold_max = -0.55
         if threshold_min <= pressure <= threshold_max:
             # Emit the message to the connected clients
             socketio.emit('threshold_message', "Pressure reached!")
+        elif pressure <= threshold_min:
+            socketio.emit('threshold_message', "Too much Pressure!!!!")
         else:
             # Emit an empty message if the pressure is not within the range
             socketio.emit('threshold_message', "Pressure NOT enough")

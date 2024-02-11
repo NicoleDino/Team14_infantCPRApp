@@ -12,7 +12,7 @@ function MainCPR({ navigation }) {
   const [thresholdMessage, setThresholdMessage] = useState('');
 
   useEffect(() => {
-    const newSocket = io('http://192.168.68.106:5000', { transports: ['websocket'] });
+    const newSocket = io('http://192.168.68.107:5000', { transports: ['websocket'] });
     setSocket(newSocket);
 
     newSocket.on('connect_error', (error) => {
