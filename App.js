@@ -10,7 +10,7 @@ import MainCPR from './screens/MainCPR/';
 import Results from './screens/Results';
 import More from './screens/More';
 import TutorialCPR from './screens/TutorialCPR';
-import Pre_CPR from './screens/Pre_CPR'; // Import the new screen
+import Pre_CPR from './screens/Pre_CPR';
 
 const Stack = createStackNavigator();
 
