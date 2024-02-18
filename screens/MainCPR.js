@@ -58,6 +58,10 @@ function MainCPR({ navigation }) {
     navigation.navigate("Results");
   };
 
+  const handleBackToDashboardPress = () => {
+    navigation.navigate('Dashboard');
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Perform Infant CPR!</Text>
@@ -78,13 +82,15 @@ function MainCPR({ navigation }) {
         <Text style={styles.text}>Flow Status: {data.status}</Text> */}
       </View>
 
-      <TouchableOpacity
-        style={styles.checkResultsButton}
-        onPress={handleCheckResultsPress}
-        on
-      >
-        <Text style={styles.checkResultsButtonText}>Check Results!</Text>
-      </TouchableOpacity>
+      
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.backButton} onPress={handleBackToDashboardPress}>
+          <Text style={styles.backButtonText}>Back to Dashboard</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.checkResultsButton} onPress={handleCheckResultsPress}>
+          <Text style={styles.checkResultsButtonText}>Check Results!</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -112,16 +118,34 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "black",
   },
+  buttonContainer: {
+    flexDirection: 'row',
+    marginTop: 10,
+    marginBottom: 10
+  },
   checkResultsButton: {
     backgroundColor: "#FF7FAA",
     padding: 15,
     borderRadius: 8,
     marginTop: 20,
+    marginHorizontal: 15
   },
   checkResultsButtonText: {
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
+  },
+  backButton: {
+    backgroundColor: '#FF7FAA',
+    padding: 15,
+    borderRadius: 8,
+    marginTop: 20,
+    marginHorizontal: 10
+  },
+  backButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   title: {
     fontSize: 24,
