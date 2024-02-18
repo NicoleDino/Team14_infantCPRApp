@@ -1,5 +1,5 @@
 // PracticeCPR.js
-import React from 'react';
+{/*import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 function PracticeCPR({ navigation }) {
@@ -57,3 +57,4 @@ const styles = StyleSheet.create({
 });
 
 export default PracticeCPR;
+*/}

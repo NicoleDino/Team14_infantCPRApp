@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native';
 
 const gifs = [
@@ -24,7 +24,7 @@ const gifs = [
     id: '4',
     title: 'Step 4: Perform 30 chest compressions',
     url: require('../assets/cprs4.gif'),
-    instructions: "Chest compressions are the most crucial phase in the procedure. Find a firm, level surface to lay your infant down on first. Next, visualize a line connecting each nipple, and place two fingers slightly below it. Raise your infant's chest to his sternum by one (1) to one and a half (1.5) inches. Complete this step thirty times while maintaining a constant rate of 100 chest compressions per minute. To determine the appropriate pace, sing 'Stayin' Alive.' If your hand or fingers become fatigued, switch hands.",
+    instructions: "Chest compressions are the most crucial phase in the procedure. Find a firm, level surface to lay your infant down on first. Next, visualize a line connecting each nipple, and place two fingers slightly below it. Raise your infant's chest to his sternum by one (1) to one and a half (1.5) inches. Complete this step thirty times while maintaining a constant rate of 100 chest compressions per minute. To determine the appropriate pace, sing 'Stayin' Alive.' If your hand or fingers become fatigued, switch hands.",
   },
   {
     id: '5',
@@ -41,8 +41,10 @@ const gifs = [
 ];
 
 function Tutorial({ navigation }) {
-  const handlePracticeCPR = () => {
-    navigation.navigate('PracticeCPR');
+  const flatListRef = useRef(null);
+
+  const handleBackToDashboardPress = () => {
+    navigation.navigate('Dashboard');
   };
 
   const handleStartCPRTraining = () => {
@@ -62,30 +64,44 @@ function Tutorial({ navigation }) {
     </View>
   );
 
+  const renderFooter = () => (
+    <View style={styles.buttonContainer}>
+      <TouchableOpacity style={styles.backButton} onPress={handleBackToDashboardPress}>
+        <Text style={styles.backButtonText}>Back to Dashboard</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.cprButton} onPress={handleStartCPRTraining}>
+        <Text style={styles.buttonText}>Begin your training!</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
   return (
     <View style={styles.screen}>
       <Text style={styles.mainTitle}>Infant CPR Tutorial: The Basics in Training</Text>
 
       <View style={styles.roundedContainer}>
         <FlatList
+          ref={flatListRef}
           data={gifs}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           style={{ width: '100%' }}
+          ListFooterComponent={renderFooter}
+          onScroll={({ nativeEvent }) => {
+            if (isCloseToBottom(nativeEvent)) {
+            }
+          }}
+          scrollEventThrottle={400}
         />
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.cprButton} onPress={handlePracticeCPR}>
-            <Text style={styles.buttonText}>Practice Mode</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.cprButton} onPress={handleStartCPRTraining}>
-            <Text style={styles.buttonText}>Begin Training</Text>
-          </TouchableOpacity>
-        </View>
       </View>
     </View>
   );
 }
+
+const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+  const paddingToBottom = 20;
+  return layoutMeasurement.height + contentOffset.y >= contentSize.height - paddingToBottom;
+};
 
 const styles = StyleSheet.create({
   screen: {
@@ -141,7 +157,21 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     marginBottom: 5,
   },
+  backButton: {
+    backgroundColor: '#FF7FAA',
+    flex: 1,
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 8,
+    marginHorizontal: 5,
+    marginBottom: 5,
+  },
   buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  backButtonText: {
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',

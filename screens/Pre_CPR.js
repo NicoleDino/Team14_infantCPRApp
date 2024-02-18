@@ -1,39 +1,71 @@
-// PreMainCPR.js
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 
 function PreMainCPR({ navigation }) {
   const handleStartCPR = () => {
     navigation.navigate('MainCPR');
   };
 
+  const handleBackToDashboardPress = () => {
+    navigation.navigate('Dashboard');
+  };
+
+  const instructionsData = [
+    {
+      id: '1',
+      text: "1. Perform the PROPER compressions on the infant manikin's chest."
+    },
+    {
+      id: '2',
+      text: "2. The application will show if the accurate pressure is achieved. The infant manikin provides an audio feedback if the pressure is too much."
+    },
+    {
+      id: '3',
+      text: "3. Perform blows or rescue breaths on the infant manikin's mouth."
+    },
+    {
+      id: '4',
+      text: "4. Visual feedbacks can be observed if your performance is correct (green) or wrong (red) on the infant manikin as well as on the application."
+    },
+    {
+      id: '5',
+      text: "5. After completing the 5 cycles of CPR procedure, don't forget to click on the Check Results to determine if you have acquired the correct skills for infant CPR"
+    },
+    {
+      id: '6',
+      text: "6. Remember to treat the infant manikin with care, its life will now depend on your hands."
+    },
+    {
+      id: '7',
+      text: "7. Don't forget to enjoy this knowledgeable training experience!"
+    }
+  ];
+
+  const renderInstructionItem = ({ item }) => (
+    <View style={styles.instructionItem}>
+      <Text style={styles.instructions}>{item.text}</Text>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Getting Ready for Training</Text>
+      <Text style={styles.title}>How to perform the INFANTECH'S CPR training?</Text>
 
-      {/* Rounded Container for Instructions */}
-      <View style={styles.instructionsContainer}>
-        <Text style={styles.instructions}>
-          Follow these steps during training:
-          {"\n\n"}
-          1. Perform the PROPER chest compressions.
-          {"\n\n"}
-          2. Tilt head of infant manikin for rescue breaths, do it accordingly.
-          {"\n\n"}
-          3. The LED lights that you will observe represents visual feedbacks if your performance is correct (green) or wrong (red).
-          {"\n\n"}
-          4. Focus on the feedback on the app to see if what you are doing is proper.
-          {"\n\n"}
-          5. Treat the infant manikin with care, since it also has its life, which is in your hands.
-          {"\n\n"}
-          6. Don't forget to enjoy this knowledgeable training experience!
-        </Text>
+      <FlatList
+        data={instructionsData}
+        renderItem={renderInstructionItem}
+        keyExtractor={item => item.id}
+        style={styles.flatList}
+      />
+
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.backButton} onPress={handleBackToDashboardPress}>
+          <Text style={styles.backButtonText}>Back to Dashboard</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.startButton} onPress={handleStartCPR}>
+          <Text style={styles.startButtonText}>Start CPR Training!</Text>
+        </TouchableOpacity>
       </View>
-
-      {/* Button to Start CPR */}
-      <TouchableOpacity style={styles.startButton} onPress={handleStartCPR}>
-        <Text style={styles.startButtonText}>Start CPR!</Text>
-      </TouchableOpacity>
     </View>
   );
 }
@@ -48,17 +80,22 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
+    marginTop: 10,
     marginBottom: 20,
     color: '#FF7FAA',
+    textAlign: 'center'
   },
-  instructionsContainer: {
+  flatList: {
+    width: '90%',
+    marginBottom: 20,
+  },
+  instructionItem: {
     borderRadius: 10,
     borderWidth: 2,
     borderStyle: 'dashed',
     borderColor: '#FF7FAA',
     padding: 20,
-    marginBottom: 20,
-    width: '90%',
+    marginBottom: 10,
     backgroundColor: 'white',
   },
   instructions: {
@@ -66,13 +103,31 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#FF7FAA',
   },
+  buttonContainer: {
+    flexDirection: 'row',
+    marginTop: 10,
+    marginBottom: 10
+  },
   startButton: {
     backgroundColor: '#FF7FAA',
     paddingVertical: 15,
     paddingHorizontal: 30,
     borderRadius: 8,
+    marginHorizontal: 5,
   },
   startButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  backButton: {
+    backgroundColor: '#FF7FAA',
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 8,
+    marginHorizontal: 5,
+  },
+  backButtonText: {
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',

@@ -6,6 +6,10 @@ const OverviewTutorial = ({ navigation }) => {
     navigation.navigate('TutorialCPR');
   };
 
+  const handleBackToDashboardPress = () => {
+    navigation.navigate('Dashboard');
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
@@ -36,9 +40,15 @@ const OverviewTutorial = ({ navigation }) => {
             </Text>
           </View>
 
-          <TouchableOpacity style={styles.nextButton} onPress={handleNextPress}>
-            <Text style={styles.nextButtonText}>Next</Text>
-          </TouchableOpacity>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.backButton} onPress={handleBackToDashboardPress}>
+              <Text style={styles.backButtonText}>Back to Dashboard</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.nextButton} onPress={handleNextPress}>
+              <Text style={styles.nextButtonText}>Next</Text>
+            </TouchableOpacity>
+          </View>
+
         </View>
       </View>
     </ScrollView>
@@ -89,7 +99,7 @@ const styles = StyleSheet.create({
   nextButton: {
     backgroundColor: '#FF7FAA',
     paddingVertical: 15,
-    paddingHorizontal: 30,
+    paddingHorizontal: 55,
     borderRadius: 8,
     marginTop: 10,
     marginBottom: 10,
@@ -99,6 +109,26 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  backButton: {
+    backgroundColor: '#FF7FAA',
+    borderRadius: 8,
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  backButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between', 
+    marginTop: 20, 
+    marginBottom: 10,
+  },
+  
   image: {
     width: '100%',
     height: 320,

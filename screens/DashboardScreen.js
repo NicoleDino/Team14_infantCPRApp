@@ -9,9 +9,9 @@ function DashboardScreen({ navigation }) {
     navigation.navigate('OverviewTutorial');
   };
 
-  const handlePracticeCPRPress = () => {
+  {/*const handlePracticeCPRPress = () => {
     navigation.navigate('PracticeCPR');
-  };
+  };*/}
 
   const handlePre_CPRPress = () => {
     navigation.navigate('Pre_CPR');
@@ -35,13 +35,13 @@ function DashboardScreen({ navigation }) {
         </Text>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={handleTutorialPress}>
-            <Text style={styles.buttonText}>Infant CPR Tutorials</Text>
+            <Text style={styles.buttonText}>Infant CPR Procedure and Tutorials</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={handlePracticeCPRPress}>
+          {/*<TouchableOpacity style={styles.button} onPress={handlePracticeCPRPress}>
             <Text style={styles.buttonText}>Infant CPR Training: Practice Mode</Text>
-          </TouchableOpacity>
+  </TouchableOpacity>*/}
           <TouchableOpacity style={styles.button} onPress={handlePre_CPRPress}>
-            <Text style={styles.buttonText}>Infant CPR Training: Test your Skills</Text>
+            <Text style={styles.buttonText}>Infant CPR Training: Implement and Assess your Skills</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={handleMorePress}>
             <Text style={styles.buttonText}>Learn More!</Text>
@@ -70,16 +70,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
     marginBottom: 20,
     color: '#FF7FAA', 
   },
   subtitle: {
     fontSize: 14,
-    marginBottom: 50,
+    marginBottom: 40,
     color: '#333', 
     textAlign: 'center',
+    fontSize: 14
   },
   cprGif: {
     width: 350,
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'column', 
     justifyContent: 'space-around',
-    width: '80%',
+    width: '90%',
   },
   button: {
     backgroundColor: '#FF7FAA',
@@ -101,6 +102,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center', 
+    fontSize: 15
   },
 });
 
