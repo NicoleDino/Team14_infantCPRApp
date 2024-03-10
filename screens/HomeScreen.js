@@ -8,7 +8,7 @@ function HomeScreen({ navigation }) {
       <View style={styles.logoSection}>
         <View style={styles.roundedContainer}>
           <Image
-            source={require('../assets/INFANTECH.png')}
+            source={require('../assets/newLogo.png')}
             style={styles.logo1}
           />
         </View>
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FF7FAA', 
     padding: 19,
     borderRadius: 20,
-    marginBottom: 220,
+    marginBottom: 40,
   },
   buttonText: {
     color: '#FFFFFF', 

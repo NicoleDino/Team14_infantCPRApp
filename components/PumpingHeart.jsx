@@ -15,7 +15,7 @@ function PumpingHeart({ pressure }) {
    * repeated calls of the start() function.
    */
   useEffect(() => {
-    if (pressure > prevPressure && currentAnimation != 0) {
+    if (pressure < prevPressure && currentAnimation != 0) {
       /** Animation timing that scales the image up to 2 */
       setCurrentAnimation(0);
       Animated.timing(scaleValue, {
@@ -24,7 +24,7 @@ function PumpingHeart({ pressure }) {
         easing: Easing.ease,
         useNativeDriver: true,
       }).start();
-    } else if (pressure < prevPressure && currentAnimation != 1) {
+    } else if (pressure > prevPressure && currentAnimation != 1) {
       /** Animation timing that scales the image back to 1 */
       setCurrentAnimation(1);
       Animated.timing(scaleValue, {

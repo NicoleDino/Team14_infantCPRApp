@@ -1,0 +1,12 @@
+
+1. Open folder in terminal
+
+if new computer
+	python -m venv .venv
+
+2. Activate .venv
+	.venv\Scripts\activate
+3. Install requirements (if not installed)
+	pip install -r requirements.txt
+4. Run server
+	python app.py
