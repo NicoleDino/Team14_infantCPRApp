@@ -1,3 +1,4 @@
+// MainCPR.js
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import io from "socket.io-client";
@@ -19,13 +20,16 @@ function MainCPR({ navigation }) {
   const [thresholdMessage, setThresholdMessage] = useState("None");
   const [rescueBreathReady, setRescueBreathReady] = useState(false);
 
+  // Timer state
+  const [timer, setTimer] = useState(120); // 2 minutes in seconds
+
   // Gets the current count of compressions and rescue breaths
   const [cyclesCount, setCyclesCount] = useState(0);
   const [compressionCount, setCompressionCount] = useState(0);
   const [rescueBreathCount, setRescueBreathCount] = useState(0);
 
   useEffect(() => {
-    const newSocket = io("http://192.168.68.106:5000", {
+    const newSocket = io("http://192.168.68.108:5000", {
       transports: ["websocket"],
     });
     setSocket(newSocket);
@@ -96,16 +100,69 @@ function MainCPR({ navigation }) {
     }
   }, [socket]);
 
+  useEffect(() => {
+    if (socket != null) {
+      // Timer interval
+      const interval = setInterval(() => {
+        setTimer((prevTimer) => prevTimer - 1);
+      }, 1000);
+
+      // Cleanup interval on component unmount
+      return () => clearInterval(interval);
+    }
+  }, [socket]);
+
+  // Function to format time in "2:00" format
+const formatTime = (seconds) => {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+};
+
   const handleCheckResultsPress = () => {
     navigation.navigate("Results");
   };
 
   const handleBackToDashboardPress = () => {
-    navigation.navigate("Dashboard");
+    Alert.alert(
+      'Back to Dashboard',
+      'Do you wish to proceed?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel'
+        },
+        {
+          text: 'Proceed',
+          onPress: () => navigation.navigate('Dashboard')
+        }
+      ],
+      { cancelable: false }
+    );
   };
 
+  const handleRestartCPRPress = () => {
+    Alert.alert(
+      'Restart CPR Training',
+      'Are you sure you want to restart? Note that your progress will reset',
+      [
+        {
+          text: 'Nevermind',
+          style: 'cancel'
+        },
+        {
+          text: 'Yes, please',
+          onPress: restart
+        }
+      ],
+      { cancelable: false }
+    );
+  };
+
+
   const restart = async () => {
-    const url = "http://192.168.68.106:5000/restart";
+    setTimer(120);
+    const url = "http://192.168.68.108:5000/restart";
     try {
       const response = await fetch(url);
       if (response.ok) {
@@ -120,6 +177,7 @@ function MainCPR({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.timer}>⏱️ Timer: {formatTime(timer)}</Text> 
       <Text style={styles.title}>Perform Infant CPR!</Text>
       <View style={styles.roundedContainer}>
         {/** Current count of cycles, compressions, and rescue breaths */}
@@ -143,16 +201,13 @@ function MainCPR({ navigation }) {
         ) : (
           <></>
         )}
-
-        {/* <Text style={styles.text}>Flow Rate: {data.flow_rate} mL/s</Text>
-        <Text style={styles.text}>Flow Status: {data.status}</Text> */}
       </View>
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.backButton} onPress={handleBackToDashboardPress}>
           <Text style={styles.backButtonText}>Back to Dashboard</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.resetButton} onPress={restart}>
+        <TouchableOpacity style={styles.resetButton} onPress={handleRestartCPRPress}>
           <Text style={styles.resetButtonText}>Restart CPR Training</Text>
         </TouchableOpacity>
       </View>
@@ -230,6 +285,12 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
+  },
+  timer: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+    color: "#FF7FAA",
   },
 });
 

@@ -1,8 +1,22 @@
 // HomeScreen.js
 import React from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet, Alert } from 'react-native';
 
 function HomeScreen({ navigation }) {
+  const handleBeginPress = () => {
+    Alert.alert(
+      'INFANTECH Infant CPR Training',
+      'Welcome to Infant CPR Training! Prepare to learn life-saving skills and empower yourself to handle emergency situations. Are you ready to save lives?',
+      [
+        {
+          text: 'Yes, let\'s go!',
+          onPress: () => navigation.navigate('Dashboard')
+        }
+      ],
+      { cancelable: false }
+    );
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.logoSection}>
@@ -21,14 +35,13 @@ function HomeScreen({ navigation }) {
       <Text style={styles.title}>Learn and Assess your Skills{'\n'}on Infant CPR Training</Text>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Dashboard')}
+        onPress={handleBeginPress}
       >
         <Text style={styles.buttonText}>Let's Begin!</Text>
       </TouchableOpacity>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

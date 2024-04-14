@@ -1,10 +1,24 @@
 // More.js
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Linking } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Linking, Alert } from 'react-native';
 
 function More({ navigation }) {
   const handleBackToDashboardPress = () => {
-    navigation.navigate('Dashboard');
+    Alert.alert(
+      'Back to Dashboard',
+      'Do you want to go back?',
+      [
+        {
+          text: 'No',
+          style: 'cancel'
+        },
+        {
+          text: 'Yes',
+          onPress: () => navigation.navigate('Dashboard')
+        }
+      ],
+      { cancelable: false }
+    );
   };
 
   const handleOpenLink = (url) => {
@@ -26,7 +40,7 @@ function More({ navigation }) {
         <Text style={styles.link}>👶 Child & Baby CPR - Red Cross</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => handleOpenLink('https://www.youtube.com/watch?v=tK-gwp4dPmw')}>
-        <Text style={styles.link}>🎥 Additional Infant CPR Video Tutorials/Trainings</Text>
+        <Text style={styles.link}>🎥 Additional Infant CPR Video Tutorial/Training</Text>
       </TouchableOpacity>
       <Text style={styles.title}>Feedback Form:</Text>
       <TouchableOpacity onPress={handleOpenFeedbackForm}>

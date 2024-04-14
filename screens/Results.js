@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Image, Alert, FlatList } from "react-native";
 
 import { readObjectData } from "../utils/storage";
 
@@ -11,8 +11,30 @@ function Results({ navigation, route }) {
     breathsScore: 0,
   };
 
+  const goals = [
+    { id: 1, text: "===== REMEMBER YOUR GOALS 🎯 =====" },
+    { id: 2, text: "           1. Achieve and complete 5 cycles" },
+    { id: 3, text: "           2. Note that 1 cycle is:" },
+    { id: 4, text: "                 ￫ 30 chest compressions" },
+    { id: 5, text: "                 ￫ 2 rescue breaths" },
+  ];
+
   const handleBackToDashboardPress = () => {
-    navigation.navigate("Dashboard");
+    Alert.alert(
+      'Back to Dashboard',
+      'Done reviewing your results?',
+      [
+        {
+          text: 'Not yet',
+          style: 'cancel'
+        },
+        {
+          text: 'Yes',
+          onPress: () => navigation.navigate('Dashboard')
+        }
+      ],
+      { cancelable: false }
+    );
   };
 
   useEffect(() => {
@@ -38,14 +60,24 @@ function Results({ navigation, route }) {
           style={styles.logo}
         />
       </View>
+      <FlatList
+        data={goals}
+        renderItem={({ item }) => (
+          <View style={styles.goalItem}>
+            <Text style={styles.goalText}>{item.text}</Text>
+          </View>
+        )}
+        keyExtractor={item => item.id.toString()}
+      />
       <View style={styles.contentContainer}>
-        <Text style={styles.scoreText}>--++------------++------------++--</Text>
-        <Text style={styles.scoreText}>✅ Accomplished number of cycles: {scores.cycles}</Text>
+        <Text style={styles.scoreText}>---++------------++------------++---</Text>
+        <Text style={styles.scoreText}>YOUR SCORE 👶🏼</Text>
+        <Text style={styles.scoreText}> ✱ Accomplished number of cycles: {scores.cycles} out of 5</Text>
         <Text style={styles.scoreText}>
-          ❌ Failed Chest Compressions: {scores.mistakes_compressions}
+        ✧  Failed Chest Compressions: {scores.mistakes_compressions}
         </Text>
         <Text style={styles.scoreText}>
-          ❌ Failed Rescue Breaths: {scores.mistakes_rescue_breaths}
+        ✧ Failed Rescue Breaths: {scores.mistakes_rescue_breaths}
         </Text>
 
         <TouchableOpacity
@@ -71,24 +103,35 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   logo: {
-    width: 300,
-    height: 200,
+    width: 250,
+    height: 150,
     marginBottom: 15,
+  },
+  goalItem: {
+    paddingHorizontal: 30,
+    paddingVertical: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: '#EAEAEA',
+  },
+  goalText: {
+    fontSize: 17,
+    color: '#FF7FAA',
   },
   contentContainer: {
     justifyContent: "center",
     alignItems: "center",
   },
   scoreText: {
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 18,
     marginBottom: 10,
+    fontWeight: 'bold',
     color: "#FF7FAA",
   },
   backButton: {
     backgroundColor: "#FF7FAA",
     padding: 15,
     borderRadius: 8,
+    marginBottom: 150,
     marginTop: 20,
   },
   backButtonText: {

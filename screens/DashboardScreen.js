@@ -9,12 +9,16 @@ function DashboardScreen({ navigation }) {
     navigation.navigate('OverviewTutorial');
   };
 
-  {/*const handlePracticeCPRPress = () => {
-    navigation.navigate('PracticeCPR');
-  };*/}
-
   const handlePre_CPRPress = () => {
     navigation.navigate('Pre_CPR');
+  };
+
+  const handleQuizScreenPress = () => {
+    navigation.navigate('PreQuiz');
+  };
+
+  const handlePreFourPicsPress = () => {
+    navigation.navigate('PreFourPics');
   };
 
   const handleMorePress = () => {
@@ -37,11 +41,14 @@ function DashboardScreen({ navigation }) {
           <TouchableOpacity style={styles.button} onPress={handleTutorialPress}>
             <Text style={styles.buttonText}>Infant CPR Procedure and Tutorials</Text>
           </TouchableOpacity>
-          {/*<TouchableOpacity style={styles.button} onPress={handlePracticeCPRPress}>
-            <Text style={styles.buttonText}>Infant CPR Training: Practice Mode</Text>
-  </TouchableOpacity>*/}
           <TouchableOpacity style={styles.button} onPress={handlePre_CPRPress}>
             <Text style={styles.buttonText}>Infant CPR Training: Implement and Assess your Skills</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={handleQuizScreenPress}>
+            <Text style={styles.buttonText}>Test your Knowledge!</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={handlePreFourPicsPress}>
+            <Text style={styles.buttonText}>4-Pics 1-Word</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={handleMorePress}>
             <Text style={styles.buttonText}>Learn More!</Text>

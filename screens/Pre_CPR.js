@@ -1,13 +1,42 @@
+// Pre_CPR.js
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, FlatList, Alert } from 'react-native';
 
 function PreMainCPR({ navigation }) {
   const handleStartCPR = () => {
-    navigation.navigate('MainCPR');
+    Alert.alert(
+      'Start and Perform Infant CPR',
+      'Are you ready to begin your training?',
+      [
+        {
+          text: 'Not yet',
+          style: 'cancel'
+        },
+        {
+          text: 'Absolutely!',
+          onPress: () => navigation.navigate('Countdown')
+        }
+      ],
+      { cancelable: false }
+    );
   };
 
   const handleBackToDashboardPress = () => {
-    navigation.navigate('Dashboard');
+    Alert.alert(
+      'Back to Dashboard',
+      'Do you wish to proceed?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel'
+        },
+        {
+          text: 'Proceed',
+          onPress: () => navigation.navigate('Dashboard')
+        }
+      ],
+      { cancelable: false }
+    );
   };
 
   const instructionsData = [

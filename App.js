@@ -1,16 +1,19 @@
-// App.js
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./screens/HomeScreen";
 import DashboardScreen from "./screens/DashboardScreen";
 import OverviewTutorial from "./screens/OverviewTutorial";
-//import PracticeCPR from "./screens/PracticeCPR";
 import MainCPR from "./screens/MainCPR";
 import Results from "./screens/Results";
 import More from "./screens/More";
 import TutorialCPR from "./screens/TutorialCPR";
 import Pre_CPR from "./screens/Pre_CPR";
+import Countdown from "./screens/Countdown";
+import QuizScreen from "./screens/QuizScreen";
+import PreQuizScreen from "./screens/PreQuizScreen";
+import FourPicsGame from "./screens/FourPicsGame";
+import PreFourPics from "./screens/PreFourPics";
 
 const Stack = createStackNavigator();
 
@@ -57,14 +60,6 @@ function App() {
             headerLeft: null
           }}
         />
-        {/*
-        <Stack.Screen
-          name="PracticeCPR"
-          component={PracticeCPR}
-          options={{
-            title: "Test Your Skills and Practice",
-          }}
-        />*/}
         <Stack.Screen
           name="Pre_CPR"
           component={Pre_CPR}
@@ -94,6 +89,46 @@ function App() {
           component={More}
           options={{
             title: "More Resources",
+            headerLeft: null
+          }}
+        />
+        <Stack.Screen
+          name="Countdown"
+          component={Countdown}
+          options={{
+            title: "Preparing your Training",
+            headerLeft: null
+          }}
+        />
+        <Stack.Screen
+          name="Quiz"
+          component={QuizScreen}
+          options={{
+            title: "Check your Understanding!",
+            headerLeft: null
+          }}
+        />
+        <Stack.Screen
+          name="PreQuiz"
+          component={PreQuizScreen}
+          options={{
+            title: "Quiz Mechanics",
+            headerLeft: null
+          }}
+        />
+        <Stack.Screen
+          name="PreFourPics"
+          component={PreFourPics}
+          options={{
+            title: "How to Play?",
+            headerLeft: null
+          }}
+        />
+        <Stack.Screen
+          name="FourPicsGame"
+          component={FourPicsGame}
+          options={{
+            title: "Let's Play 4-Pics 1-Word!",
             headerLeft: null
           }}
         />

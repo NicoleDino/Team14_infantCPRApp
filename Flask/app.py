@@ -31,7 +31,7 @@ def receive_data():
 
         socketio.emit("realtime_pressure", pressure)
 
-        threshold_min = 0.50
+        threshold_min = 0.10
         threshold_max = 0.70
         if threshold_min <= pressure <= threshold_max:
             socketio.emit("threshold_message", "Pressure reached!")
@@ -99,11 +99,11 @@ def restart():
 
 
 def determine_status(flow_rate):
-    if flow_rate >= 1.00 and flow_rate <= 2.50:
+    if flow_rate >= 1.50 and flow_rate <= 4.00:
         return "HIT"
-    elif flow_rate > 2.50:
+    elif flow_rate > 4.00:
         return "MAX"
-    elif flow_rate < 1.00:
+    elif flow_rate < 1.50:
         return "MIN"
     else:
         return "UNKNOWN"
