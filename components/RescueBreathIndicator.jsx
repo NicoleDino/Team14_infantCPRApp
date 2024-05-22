@@ -46,7 +46,7 @@ function RescueBreathIndicator({ status }) {
   return (
     <>
       <View style={styles.container}>
-        <Text style={styles.text}>Rescue Breath Indicator</Text>
+        <Text style={styles.text}>Rescue Breaths Indicator</Text>
         <View style={styles.lights}>{renderLight(status)}</View>
       </View>
     </>

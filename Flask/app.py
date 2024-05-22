@@ -1,3 +1,5 @@
+# app.py
+
 from flask import Flask, request, jsonify
 from flask_socketio import SocketIO
 import time
@@ -31,12 +33,12 @@ def receive_data():
 
         socketio.emit("realtime_pressure", pressure)
 
-        threshold_min = 0.10
-        threshold_max = 0.70
+        threshold_min = 0.38
+        threshold_max = 0.50
         if threshold_min <= pressure <= threshold_max:
-            socketio.emit("threshold_message", "Pressure reached!")
+            socketio.emit("threshold_message", "Pressure Reached!")
         elif pressure >= threshold_max:
-            socketio.emit("threshold_message", "Too much Pressure!!!!")
+            socketio.emit("threshold_message", "Too Much Pressure!!!!")
         else:
             socketio.emit(
                 "threshold_message", "Ready To Pump!"
@@ -99,11 +101,11 @@ def restart():
 
 
 def determine_status(flow_rate):
-    if flow_rate >= 1.50 and flow_rate <= 4.00:
+    if flow_rate >= 80.00 and flow_rate <= 100.00:
         return "HIT"
-    elif flow_rate > 4.00:
+    elif flow_rate > 100.00:
         return "MAX"
-    elif flow_rate < 1.50:
+    elif flow_rate < 80.00:
         return "MIN"
     else:
         return "UNKNOWN"

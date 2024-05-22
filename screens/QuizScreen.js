@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { FontAwesome } from '@expo/vector-icons'; // Import FontAwesome icons
 
 const QuizScreen = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -123,6 +124,24 @@ const QuizScreen = () => {
     );
   };  
 
+  const handleQuitGame = () => {
+    Alert.alert(
+        'Quit Game',
+        'Are you sure you want to quit the game?',
+        [
+            {
+                text: 'No',
+                style: 'cancel'
+            },
+            {
+                text: 'Yes',
+                onPress: () => navigation.navigate('Dashboard')
+            }
+        ],
+        { cancelable: false }
+    );
+};
+
   const handleAnswer = (selectedOptionIndex) => {
     const currentQuestion = quizQuestions[currentQuestionIndex];
     if (selectedOptionIndex === currentQuestion.correctAnswerIndex) {
@@ -153,6 +172,11 @@ const QuizScreen = () => {
     }
     return (
       <View style={styles.container}>
+        <View style={styles.header}>
+          <TouchableOpacity onPress={handleQuitGame}>
+            <FontAwesome name="window-close" size={40} color="#FF7FAA4D" />
+          </TouchableOpacity>
+        </View>
         <Text style={styles.questionText}>{currentQuestion.question}</Text>
         {currentQuestion.options.map((option, index) => (
           <TouchableOpacity
@@ -176,6 +200,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
+  },
+  header: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    padding: 20,
   },
   buttonContainer: {
     flexDirection: "row",

@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 18,
-    textAlign: 'center',
+    textAlign: 'justify',
     marginBottom: 40,
     marginHorizontal: 20,
   },

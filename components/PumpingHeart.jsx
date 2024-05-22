@@ -14,6 +14,7 @@ function PumpingHeart({ pressure }) {
    * It also checks if the current animation is already playing. This is to avoid
    * repeated calls of the start() function.
    */
+  
   useEffect(() => {
     if (pressure < prevPressure && currentAnimation != 0) {
       /** Animation timing that scales the image up to 2 */
@@ -38,6 +39,7 @@ function PumpingHeart({ pressure }) {
     /**Assigns the current pressure to the previous pressure */
     setPrevPressure(pressure);
   }, [pressure]);
+  
 
   return (
     <>

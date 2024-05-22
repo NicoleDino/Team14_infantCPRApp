@@ -13,6 +13,10 @@ function DashboardScreen({ navigation }) {
     navigation.navigate('Pre_CPR');
   };
 
+  const handlePracticeCPRPress = () => {
+    navigation.navigate('Pre_PracCPR');
+  };
+
   const handleQuizScreenPress = () => {
     navigation.navigate('PreQuiz');
   };
@@ -41,6 +45,9 @@ function DashboardScreen({ navigation }) {
           <TouchableOpacity style={styles.button} onPress={handleTutorialPress}>
             <Text style={styles.buttonText}>Infant CPR Procedure and Tutorials</Text>
           </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={handlePracticeCPRPress}>
+            <Text style={styles.buttonText}>Infant CPR Training: Practice CPR</Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={handlePre_CPRPress}>
             <Text style={styles.buttonText}>Infant CPR Training: Implement and Assess your Skills</Text>
           </TouchableOpacity>
@@ -48,7 +55,7 @@ function DashboardScreen({ navigation }) {
             <Text style={styles.buttonText}>Test your Knowledge!</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={handlePreFourPicsPress}>
-            <Text style={styles.buttonText}>4-Pics 1-Word</Text>
+            <Text style={styles.buttonText}>4-Pics & 1-Word</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={handleMorePress}>
             <Text style={styles.buttonText}>Learn More!</Text>
@@ -71,7 +78,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     borderWidth: 2,
     borderStyle: 'dashed',
-    padding: 40,
+    padding: 38,
     borderColor: '#FF7FAA',
     backgroundColor: 'white',
     alignItems: 'center',
@@ -84,7 +91,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 14,
-    marginBottom: 40,
+    marginBottom: 25,
     color: '#333', 
     textAlign: 'center',
     fontSize: 14

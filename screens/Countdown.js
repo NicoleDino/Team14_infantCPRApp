@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { Audio } from 'expo-av';
 
 const Countdown = ({ navigation }) => {
@@ -7,7 +7,6 @@ const Countdown = ({ navigation }) => {
   const [sound, setSound] = useState(null);
 
   useEffect(() => {
-
     const loadSound = async () => {
       const { sound } = await Audio.Sound.createAsync(
         require('../assets/start.mp3')
@@ -41,10 +40,16 @@ const Countdown = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <Image
+        source={require('../assets/loading.gif')}
+        style={styles.gif}
+      />
       {countdown > 0 ? (
         <Text style={styles.countdown}>{countdown}</Text>
       ) : (
-        <Text style={styles.startText}>START</Text>
+        <View style={styles.startButton}>
+          <Text style={styles.startText}>START</Text>
+        </View>
       )}
     </View>
   );
@@ -55,16 +60,28 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#FCE4EC', 
+  },
+  gif: {
+    width: 200, 
+    height: 200,
+    marginBottom: 20, 
   },
   countdown: {
     fontSize: 60,
     fontWeight: 'bold',
+    color: '#FF7FAA',
+    marginBottom: 100 
+  },
+  startButton: {
+    alignItems: 'center',
   },
   startText: {
-    fontSize: 60,
+    fontSize: 50,
     fontWeight: 'bold',
-    color: 'purple',
+    color: '#FF7FAA', 
+    marginTop: 10, 
+    marginBottom: 100
   },
 });
 

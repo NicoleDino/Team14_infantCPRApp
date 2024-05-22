@@ -1,3 +1,5 @@
+#ScoringSystem.py
+
 class ScoringSystem:
     """The ScoringSystem class is responsible for saving the number of compressions, rescue breaths,
     and cycles. It is also responsible for processing the score that will be shown to the user.
@@ -5,9 +7,9 @@ class ScoringSystem:
 
     def __init__(self):
         # Scoring configurations
-        self.maxNumOfCompressions = 30  # default: 30
+        self.maxNumOfCompressions = 5  # default: 30
         self.maxNumOfRescueBreaths = 2  # default: 2
-        self.maxCycles = 5  # default: 5
+        self.maxCycles = 2  # default: 5
 
         # Initiates scores
         self.reset_scoring()

@@ -5,6 +5,8 @@ import HomeScreen from "./screens/HomeScreen";
 import DashboardScreen from "./screens/DashboardScreen";
 import OverviewTutorial from "./screens/OverviewTutorial";
 import MainCPR from "./screens/MainCPR";
+import PracticeCPR from "./screens/PracticeCPR";
+import Pre_PracCPR from "./screens/Pre_PracCPR";
 import Results from "./screens/Results";
 import More from "./screens/More";
 import TutorialCPR from "./screens/TutorialCPR";
@@ -61,6 +63,22 @@ function App() {
           }}
         />
         <Stack.Screen
+          name="Pre_PracCPR"
+          component={Pre_PracCPR}
+          options={{
+            title: "Practice Infant CPR Training",
+            headerLeft: null
+          }}
+        />
+        <Stack.Screen
+          name="PracticeCPR"
+          component={PracticeCPR}
+          options={{
+            title: "Perform Infant CPR Training: Practice",
+            headerLeft: null
+          }}
+        />
+        <Stack.Screen
           name="Pre_CPR"
           component={Pre_CPR}
           options={{
@@ -96,7 +114,7 @@ function App() {
           name="Countdown"
           component={Countdown}
           options={{
-            title: "Preparing your Training",
+            title: "Be Ready for Training",
             headerLeft: null
           }}
         />

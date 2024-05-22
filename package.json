@@ -9,13 +9,15 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/vector-icons": "^13.0.0",
     "@expo/webpack-config": "^19.0.0",
-    "@react-native-async-storage/async-storage": "^1.22.0",
+    "@react-native-async-storage/async-storage": "1.18.2",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-community/viewpager": "^5.0.11",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/stack": "^6.3.20",
     "expo": "~49.0.15",
+    "expo-av": "~13.4.1",
     "expo-status-bar": "~1.6.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -30,8 +32,7 @@
     "react-native-webview": "13.2.2",
     "react-native-youtube": "^2.0.2",
     "react-native-youtube-iframe": "^2.3.0",
-    "socket.io-client": "^4.7.3",
-    "expo-av": "~13.4.1"
+    "socket.io-client": "^4.7.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

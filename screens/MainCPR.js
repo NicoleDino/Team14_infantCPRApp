@@ -1,4 +1,5 @@
 // MainCPR.js
+
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import io from "socket.io-client";
@@ -21,15 +22,17 @@ function MainCPR({ navigation }) {
   const [rescueBreathReady, setRescueBreathReady] = useState(false);
 
   // Timer state
-  const [timer, setTimer] = useState(120); // 2 minutes in seconds
+  const [timer, setTimer] = useState(0); // 2 minutes in seconds
 
   // Gets the current count of compressions and rescue breaths
   const [cyclesCount, setCyclesCount] = useState(0);
   const [compressionCount, setCompressionCount] = useState(0);
   const [rescueBreathCount, setRescueBreathCount] = useState(0);
 
+  const [trainingActive, setTrainingActive] = useState(true);
+
   useEffect(() => {
-    const newSocket = io("http://192.168.68.108:5000", {
+    const newSocket = io("http://192.168.68.107:5000", {
       transports: ["websocket"],
     });
     setSocket(newSocket);
@@ -101,27 +104,28 @@ function MainCPR({ navigation }) {
   }, [socket]);
 
   useEffect(() => {
-    if (socket != null) {
+    if (socket != null && trainingActive) {
       // Timer interval
       const interval = setInterval(() => {
-        setTimer((prevTimer) => prevTimer - 1);
+        setTimer((prevTimer) => prevTimer + 1); // Increment the timer value
       }, 1000);
-
-      // Cleanup interval on component unmount
+  
+      // Cleanup interval on component unmount or when training ends
       return () => clearInterval(interval);
     }
-  }, [socket]);
+  }, [socket, trainingActive]);
+  
 
   // Function to format time in "2:00" format
-const formatTime = (seconds) => {
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
-  return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
-};
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  };
 
   const handleCheckResultsPress = () => {
-    navigation.navigate("Results");
-  };
+    navigation.navigate("Results", { timer });
+  };  
 
   const handleBackToDashboardPress = () => {
     Alert.alert(
@@ -134,7 +138,10 @@ const formatTime = (seconds) => {
         },
         {
           text: 'Proceed',
-          onPress: () => navigation.navigate('Dashboard')
+          onPress: () => {
+            restart();
+            navigation.navigate('Dashboard');
+          }
         }
       ],
       { cancelable: false }
@@ -161,8 +168,9 @@ const formatTime = (seconds) => {
 
 
   const restart = async () => {
-    setTimer(120);
-    const url = "http://192.168.68.108:5000/restart";
+    setTimer(0);
+    setTrainingActive(true); // Restart training
+    const url = "http://192.168.68.107:5000/restart";
     try {
       const response = await fetch(url);
       if (response.ok) {
@@ -175,10 +183,25 @@ const formatTime = (seconds) => {
     }
   };
 
+  
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "Pressure Reached!":
+        return { color: "#8fbc8f" };
+      case "Too Much Pressure!!!!":
+        return { color: "#cd5c5c" }; 
+      case "Ready To Pump!":
+        return { color: "#ff69b4" }; 
+      default:
+        return { color: "#000000" }; 
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.timer}>⏱️ Timer: {formatTime(timer)}</Text> 
       <Text style={styles.title}>Perform Infant CPR!</Text>
+      <Text style={styles.timer}>⏱️ Timer: {formatTime(timer)}</Text>
       <View style={styles.roundedContainer}>
         {/** Current count of cycles, compressions, and rescue breaths */}
         <Text style={styles.text}>⭕  Cycles: {cyclesCount}</Text>
@@ -188,10 +211,23 @@ const formatTime = (seconds) => {
         {/** Pumping heart component **/}
         {/** We pass data.realtime_pressure to the PumpingHeart component */}
         <PumpingHeart pressure={data.realtime_pressure} />
-        <Text style={styles.text}>
+        {/* <Text style={styles.text}>
           Detected Pressure: {data.realtime_pressure} PSI
-        </Text>
-        <Text style={styles.text}>Pressure Status: {thresholdMessage}</Text>
+        </Text>         */}
+        <View style={styles.statusContainer}>
+          <Text style={[styles.text, styles.statusText]}>PRESSURE STATUS</Text>
+          <View style={styles.thresholdMessageContainer}>
+            <Text style={[styles.thresholdMessageText, getStatusColor(thresholdMessage)]}>
+              {thresholdMessage}
+            </Text>
+          </View>
+          
+            {/* Button to navigate to results - REMOVE */}
+          {/* <TouchableOpacity style={styles.checkResultsButton} onPress={handleCheckResultsPress}>
+            <Text style={styles.checkResultsButtonText}>Check Results</Text>
+          </TouchableOpacity> */}
+            </View>
+
 
         {/** Rescue Breath Indicator */}
         {/** We pass data.status to the RescueBreathIndicator component */}
@@ -238,6 +274,31 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     fontSize: 18,
     color: "black",
+  },
+  statusContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 10,
+    marginTop: 15 
+  },
+  statusText: {
+    fontSize: 17.5,
+    fontWeight: "bold",
+    marginBottom: 10, 
+  },
+  thresholdMessageContainer: {
+    backgroundColor: "lavender",
+    padding: 10,
+    borderRadius: 8,
+    borderWidth: 2,
+    borderStyle: 'dotted',
+    borderColor: "#66B3FF",
+    marginTop: 5 
+  },
+  thresholdMessageText: {
+    fontSize: 17,
+    fontWeight: "bold",
+    color: "#FF69B4", 
   },
   buttonContainer: {
     flexDirection: "row",
