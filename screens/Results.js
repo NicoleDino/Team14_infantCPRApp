@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Image, Alert, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  Alert,
+  FlatList,
+} from "react-native";
 import { readObjectData } from "../utils/storage";
 
 function Results({ navigation, route }) {
@@ -10,7 +18,7 @@ function Results({ navigation, route }) {
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
   const goals = [
@@ -25,17 +33,17 @@ function Results({ navigation, route }) {
 
   const handleBackToDashboardPress = () => {
     Alert.alert(
-      'Back to Dashboard',
-      'Done reviewing your results?',
+      "Back to Dashboard",
+      "Done reviewing your results?",
       [
         {
-          text: 'Not yet',
-          style: 'cancel'
+          text: "Not yet",
+          style: "cancel",
         },
         {
-          text: 'Yes',
-          onPress: () => navigation.navigate('Dashboard')
-        }
+          text: "Yes",
+          onPress: () => navigation.navigate("Dashboard"),
+        },
       ],
       { cancelable: false }
     );
@@ -46,12 +54,12 @@ function Results({ navigation, route }) {
       // Gets the score stored in the storage
       console.log("*************************************");
       console.log("Retrieving score.");
-  
-      tmp = await readObjectData("scores");
-      console.log(tmp)
-  
+
+      const tmp = await readObjectData("scores");
+      console.log(tmp);
+
       setScores(tmp);
-    }
+    };
 
     fetchData();
   }, []);
@@ -63,7 +71,7 @@ function Results({ navigation, route }) {
         <View style={styles.container}>
           <View style={styles.logoContainer}>
             <Image
-              source={require('../assets/scoringbaby.png')}
+              source={require("../assets/scoringbaby.png")}
               style={styles.logo}
             />
           </View>
@@ -71,37 +79,44 @@ function Results({ navigation, route }) {
             data={goals}
             renderItem={({ item }) => (
               <View style={styles.goalItem}>
-                <Text style={[styles.goalText, (item.id === 6 || item.id === 7) ? { fontWeight: 'bold' } : null]}>
+                <Text
+                  style={[
+                    styles.goalText,
+                    item.id === 6 || item.id === 7
+                      ? { fontWeight: "bold" }
+                      : null,
+                  ]}
+                >
                   {item.text}
                 </Text>
               </View>
             )}
-            keyExtractor={item => item.id.toString()}
+            keyExtractor={(item) => item.id.toString()}
           />
           <View style={styles.contentContainer}>
             <View style={styles.scoreContainer}>
-              <Text style={styles.scoreText}>---++------------++------------++---</Text>
-              <Text style={styles.scoreText}>YOUR SCORE 👶🏼</Text>
-              <Text style={styles.scoreText}> ✱ Accomplished number of cycles: {scores.cycles} out of 5</Text>
               <Text style={styles.scoreText}>
-                ✧  Failed Chest Compressions: {scores.mistakes_compressions}
+                ---++------------++------------++---
+              </Text>
+              <Text style={styles.scoreText}>YOUR SCORE 👶🏼</Text>
+              <Text style={styles.scoreText}>
+                {" "}
+                ✱ Accomplished number of cycles: {scores.cycles} out of 5
+              </Text>
+              <Text style={styles.scoreText}>
+                ✧ Failed Chest Compressions: {scores.mistakes_compressions}
               </Text>
               <Text style={styles.scoreText}>
                 ✧ Failed Rescue Breaths: {scores.mistakes_rescue_breaths}
               </Text>
-              {/* <Text style={styles.scoreText}>
-                ⏱️ Standard Time: 2 minutes
-              </Text> */}
               <Text style={styles.scoreText}>
                 ⏱️ Time Consumed during Training: {formatTime(timer)}
               </Text>
-
             </View>
             <Image
-              source={require('../assets/goodjob.png')} // Change the source to your image path
-              style={{ width: 230, height: 230 }} // Adjust width and height as needed
+              source={require("../assets/goodjob.png")}
+              style={{ width: 230, height: 230 }}
             />
-
             <TouchableOpacity
               style={styles.backButton}
               onPress={handleBackToDashboardPress}
@@ -109,10 +124,9 @@ function Results({ navigation, route }) {
               <Text style={styles.backButtonText}>Back to Dashboard</Text>
             </TouchableOpacity>
           </View>
-          
         </View>
       )}
-      keyExtractor={item => item.key}
+      keyExtractor={(item) => item.key}
     />
   );
 }
@@ -121,11 +135,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FCE4EC",
-    paddingTop: 40, 
+    paddingTop: 40,
   },
   logoContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 10,
   },
   logo: {
@@ -137,16 +151,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     paddingVertical: 5,
     borderBottomWidth: 1,
-    borderBottomColor: '#EAEAEA',
+    borderBottomColor: "#EAEAEA",
   },
   goalText: {
     fontSize: 17,
-    color: '#FF7FAA',
+    color: "#FF7FAA",
   },
   contentContainer: {
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 30
+    marginTop: 30,
   },
   scoreContainer: {
     alignItems: "center",
@@ -155,7 +169,7 @@ const styles = StyleSheet.create({
   scoreText: {
     fontSize: 18,
     marginBottom: 10,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: "#FF7FAA",
   },
   backButton: {

@@ -9,7 +9,7 @@ import PumpingHeart from "../components/PumpingHeart.jsx";
 import RescueBreathIndicator from "../components/RescueBreathIndicator.jsx";
 
 // For storing data
-import { storeObjectData } from "../utils/storage.js";
+import { storeObjectData, readObjectData } from "../utils/storage.js";
 
 function MainCPR({ navigation }) {
   const [socket, setSocket] = useState(null);
@@ -22,7 +22,7 @@ function MainCPR({ navigation }) {
   const [rescueBreathReady, setRescueBreathReady] = useState(false);
 
   // Timer state
-  const [timer, setTimer] = useState(0); // 2 minutes in seconds
+  const [timer, setTimer] = useState(0);
 
   // Gets the current count of compressions and rescue breaths
   const [cyclesCount, setCyclesCount] = useState(0);
@@ -32,7 +32,7 @@ function MainCPR({ navigation }) {
   const [trainingActive, setTrainingActive] = useState(true);
 
   useEffect(() => {
-    const newSocket = io("http://192.168.68.107:5000", {
+    const newSocket = io("http://192.168.68.102:5000", {
       transports: ["websocket"],
     });
     setSocket(newSocket);
@@ -94,8 +94,7 @@ function MainCPR({ navigation }) {
             Alert.alert("Congratulations!", "You completed the CPR training!", [
               { text: "Check Results", onPress: handleCheckResultsPress },
             ]);
-          }
-          catch (err) {
+          } catch (err) {
             console.log("Error saving data: ", err);
           }
         }
@@ -105,44 +104,45 @@ function MainCPR({ navigation }) {
 
   useEffect(() => {
     if (socket != null && trainingActive) {
-      // Timer interval
       const interval = setInterval(() => {
-        setTimer((prevTimer) => prevTimer + 1); // Increment the timer value
+        setTimer((prevTimer) => {
+          const newTimer = prevTimer + 1;
+          storeObjectData("elapsedTime", newTimer);
+          return newTimer;
+        });
       }, 1000);
-  
-      // Cleanup interval on component unmount or when training ends
+
       return () => clearInterval(interval);
     }
   }, [socket, trainingActive]);
-  
 
-  // Function to format time in "2:00" format
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
-  const handleCheckResultsPress = () => {
-    navigation.navigate("Results", { timer });
-  };  
+  const handleCheckResultsPress = async () => {
+    const storedElapsedTime = await readObjectData("elapsedTime");
+    navigation.navigate("Results", { timer: storedElapsedTime });
+  };
 
   const handleBackToDashboardPress = () => {
     Alert.alert(
-      'Back to Dashboard',
-      'Do you wish to proceed?',
+      "Back to Dashboard",
+      "Do you wish to proceed?",
       [
         {
-          text: 'Cancel',
-          style: 'cancel'
+          text: "Cancel",
+          style: "cancel",
         },
         {
-          text: 'Proceed',
+          text: "Proceed",
           onPress: () => {
             restart();
-            navigation.navigate('Dashboard');
-          }
-        }
+            navigation.navigate("Dashboard");
+          },
+        },
       ],
       { cancelable: false }
     );
@@ -150,27 +150,31 @@ function MainCPR({ navigation }) {
 
   const handleRestartCPRPress = () => {
     Alert.alert(
-      'Restart CPR Training',
-      'Are you sure you want to restart? Note that your progress will reset',
+      "Restart CPR Training",
+      "Are you sure you want to restart? Note that your progress will reset",
       [
         {
-          text: 'Nevermind',
-          style: 'cancel'
+          text: "Nevermind",
+          style: "cancel",
         },
         {
-          text: 'Yes, please',
-          onPress: restart
-        }
+          text: "Yes, please",
+          onPress: restart,
+        },
       ],
       { cancelable: false }
     );
   };
 
-
   const restart = async () => {
     setTimer(0);
-    setTrainingActive(true); // Restart training
-    const url = "http://192.168.68.107:5000/restart";
+    setTrainingActive(true);
+    try {
+      await storeObjectData("elapsedTime", 0);
+    } catch (error) {
+      console.error("Error resetting elapsed time:", error);
+    }
+    const url = "http://192.168.68.102:5000/restart";
     try {
       const response = await fetch(url);
       if (response.ok) {
@@ -183,18 +187,16 @@ function MainCPR({ navigation }) {
     }
   };
 
-  
-
   const getStatusColor = (status) => {
     switch (status) {
       case "Pressure Reached!":
         return { color: "#8fbc8f" };
       case "Too Much Pressure!!!!":
-        return { color: "#cd5c5c" }; 
+        return { color: "#cd5c5c" };
       case "Ready To Pump!":
-        return { color: "#ff69b4" }; 
+        return { color: "#ff69b4" };
       default:
-        return { color: "#000000" }; 
+        return { color: "#000000" };
     }
   };
 
@@ -204,9 +206,9 @@ function MainCPR({ navigation }) {
       <Text style={styles.timer}>⏱️ Timer: {formatTime(timer)}</Text>
       <View style={styles.roundedContainer}>
         {/** Current count of cycles, compressions, and rescue breaths */}
-        <Text style={styles.text}>⭕  Cycles: {cyclesCount}</Text>
-        <Text style={styles.text}>❤️‍🩹  Compressions: {compressionCount}</Text>
-        <Text style={styles.text}>🫁  Rescue Breaths: {rescueBreathCount}</Text>
+        <Text style={styles.text}>⭕ Cycles: {cyclesCount}</Text>
+        <Text style={styles.text}>❤️‍🩹 Compressions: {compressionCount}</Text>
+        <Text style={styles.text}>🫁 Rescue Breaths: {rescueBreathCount}</Text>
 
         {/** Pumping heart component **/}
         {/** We pass data.realtime_pressure to the PumpingHeart component */}
@@ -217,17 +219,21 @@ function MainCPR({ navigation }) {
         <View style={styles.statusContainer}>
           <Text style={[styles.text, styles.statusText]}>PRESSURE STATUS</Text>
           <View style={styles.thresholdMessageContainer}>
-            <Text style={[styles.thresholdMessageText, getStatusColor(thresholdMessage)]}>
+            <Text
+              style={[
+                styles.thresholdMessageText,
+                getStatusColor(thresholdMessage),
+              ]}
+            >
               {thresholdMessage}
             </Text>
           </View>
-          
-            {/* Button to navigate to results - REMOVE */}
+
+          {/* Button to navigate to results - REMOVE */}
           {/* <TouchableOpacity style={styles.checkResultsButton} onPress={handleCheckResultsPress}>
             <Text style={styles.checkResultsButtonText}>Check Results</Text>
           </TouchableOpacity> */}
-            </View>
-
+        </View>
 
         {/** Rescue Breath Indicator */}
         {/** We pass data.status to the RescueBreathIndicator component */}
@@ -240,10 +246,16 @@ function MainCPR({ navigation }) {
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.backButton} onPress={handleBackToDashboardPress}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={handleBackToDashboardPress}
+        >
           <Text style={styles.backButtonText}>Back to Dashboard</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.resetButton} onPress={handleRestartCPRPress}>
+        <TouchableOpacity
+          style={styles.resetButton}
+          onPress={handleRestartCPRPress}
+        >
           <Text style={styles.resetButtonText}>Restart CPR Training</Text>
         </TouchableOpacity>
       </View>
@@ -279,26 +291,26 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 10,
-    marginTop: 15 
+    marginTop: 15,
   },
   statusText: {
     fontSize: 17.5,
     fontWeight: "bold",
-    marginBottom: 10, 
+    marginBottom: 10,
   },
   thresholdMessageContainer: {
     backgroundColor: "lavender",
     padding: 10,
     borderRadius: 8,
     borderWidth: 2,
-    borderStyle: 'dotted',
+    borderStyle: "dotted",
     borderColor: "#66B3FF",
-    marginTop: 5 
+    marginTop: 5,
   },
   thresholdMessageText: {
     fontSize: 17,
     fontWeight: "bold",
-    color: "#FF69B4", 
+    color: "#FF69B4",
   },
   buttonContainer: {
     flexDirection: "row",

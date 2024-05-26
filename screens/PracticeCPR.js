@@ -29,7 +29,7 @@ function PracticeCPR({ navigation }) {
   const [trainingActive, setTrainingActive] = useState(true);
 
   useEffect(() => {
-    const newSocket = io("http://192.168.68.107:5000", {
+    const newSocket = io("http://192.168.68.102:5000", {
       transports: ["websocket"],
     });
     setSocket(newSocket);
@@ -99,25 +99,25 @@ function PracticeCPR({ navigation }) {
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
   const handleBackToDashboardPress = () => {
     Alert.alert(
-      'Back to Dashboard',
-      'Do you wish to proceed?',
+      "Back to Dashboard",
+      "Do you wish to proceed?",
       [
         {
-          text: 'Cancel',
-          style: 'cancel'
+          text: "Cancel",
+          style: "cancel",
         },
         {
-          text: 'Proceed',
+          text: "Proceed",
           onPress: () => {
             restart();
-            navigation.navigate('Dashboard');
-          }
-        }
+            navigation.navigate("Dashboard");
+          },
+        },
       ],
       { cancelable: false }
     );
@@ -125,17 +125,17 @@ function PracticeCPR({ navigation }) {
 
   const handleRestartCPRPress = () => {
     Alert.alert(
-      'Restart CPR Training',
-      'Are you sure you want to restart? Note that your progress will reset',
+      "Restart CPR Training",
+      "Are you sure you want to restart? Note that your progress will reset",
       [
         {
-          text: 'Nevermind',
-          style: 'cancel'
+          text: "Nevermind",
+          style: "cancel",
         },
         {
-          text: 'Yes, please',
-          onPress: restart
-        }
+          text: "Yes, please",
+          onPress: restart,
+        },
       ],
       { cancelable: false }
     );
@@ -144,7 +144,7 @@ function PracticeCPR({ navigation }) {
   const restart = async () => {
     setTimer(0);
     setTrainingActive(true); // Restart training
-    const url = "http://192.168.68.107:5000/restart";
+    const url = "http://192.168.68.102:5000/restart";
     try {
       const response = await fetch(url);
       if (response.ok) {
@@ -176,9 +176,9 @@ function PracticeCPR({ navigation }) {
       <Text style={styles.timer}>⏱️ Timer: {formatTime(timer)}</Text>
       <View style={styles.roundedContainer}>
         {/** Current count of cycles, compressions, and rescue breaths */}
-        <Text style={styles.text}>⭕  Cycles: {cyclesCount}</Text>
-        <Text style={styles.text}>❤️‍🩹  Compressions: {compressionCount}</Text>
-        <Text style={styles.text}>🫁  Rescue Breaths: {rescueBreathCount}</Text>
+        <Text style={styles.text}>⭕ Cycles: {cyclesCount}</Text>
+        <Text style={styles.text}>❤️‍🩹 Compressions: {compressionCount}</Text>
+        <Text style={styles.text}>🫁 Rescue Breaths: {rescueBreathCount}</Text>
 
         {/** Pumping heart component **/}
         {/** We pass data.realtime_pressure to the PumpingHeart component */}
@@ -189,7 +189,12 @@ function PracticeCPR({ navigation }) {
         <View style={styles.statusContainer}>
           <Text style={[styles.text, styles.statusText]}>PRESSURE STATUS</Text>
           <View style={styles.thresholdMessageContainer}>
-            <Text style={[styles.thresholdMessageText, getStatusColor(thresholdMessage)]}>
+            <Text
+              style={[
+                styles.thresholdMessageText,
+                getStatusColor(thresholdMessage),
+              ]}
+            >
               {thresholdMessage}
             </Text>
           </View>
@@ -206,10 +211,16 @@ function PracticeCPR({ navigation }) {
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.backButton} onPress={handleBackToDashboardPress}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={handleBackToDashboardPress}
+        >
           <Text style={styles.backButtonText}>Back to Dashboard</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.resetButton} onPress={handleRestartCPRPress}>
+        <TouchableOpacity
+          style={styles.resetButton}
+          onPress={handleRestartCPRPress}
+        >
           <Text style={styles.resetButtonText}>Restart CPR Practice</Text>
         </TouchableOpacity>
       </View>

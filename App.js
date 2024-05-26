@@ -51,7 +51,7 @@ function App() {
           component={OverviewTutorial}
           options={{
             title: "What is Infant CPR Training?",
-            headerLeft: null
+            headerLeft: null,
           }}
         />
         <Stack.Screen
@@ -59,7 +59,7 @@ function App() {
           component={TutorialCPR}
           options={{
             title: "Infant CPR Tutorials",
-            headerLeft: null
+            headerLeft: null,
           }}
         />
         <Stack.Screen
@@ -67,7 +67,7 @@ function App() {
           component={Pre_PracCPR}
           options={{
             title: "Practice Infant CPR Training",
-            headerLeft: null
+            headerLeft: null,
           }}
         />
         <Stack.Screen
@@ -75,7 +75,7 @@ function App() {
           component={PracticeCPR}
           options={{
             title: "Perform Infant CPR Training: Practice",
-            headerLeft: null
+            headerLeft: null,
           }}
         />
         <Stack.Screen
@@ -83,7 +83,7 @@ function App() {
           component={Pre_CPR}
           options={{
             title: "Prepare for Infant CPR Training",
-            headerLeft: null
+            headerLeft: null,
           }}
         />
         <Stack.Screen
@@ -91,7 +91,7 @@ function App() {
           component={MainCPR}
           options={{
             title: "Perform Infant CPR",
-            headerLeft: null
+            headerLeft: null,
           }}
         />
         <Stack.Screen
@@ -99,7 +99,7 @@ function App() {
           component={Results}
           options={{
             title: "Your CPR Training Results",
-            headerLeft: null
+            headerLeft: null,
           }}
         />
         <Stack.Screen
@@ -107,7 +107,7 @@ function App() {
           component={More}
           options={{
             title: "More Resources",
-            headerLeft: null
+            headerLeft: null,
           }}
         />
         <Stack.Screen
@@ -115,7 +115,7 @@ function App() {
           component={Countdown}
           options={{
             title: "Be Ready for Training",
-            headerLeft: null
+            headerLeft: null,
           }}
         />
         <Stack.Screen
@@ -123,7 +123,7 @@ function App() {
           component={QuizScreen}
           options={{
             title: "Check your Understanding!",
-            headerLeft: null
+            headerLeft: null,
           }}
         />
         <Stack.Screen
@@ -131,7 +131,7 @@ function App() {
           component={PreQuizScreen}
           options={{
             title: "Quiz Mechanics",
-            headerLeft: null
+            headerLeft: null,
           }}
         />
         <Stack.Screen
@@ -139,7 +139,7 @@ function App() {
           component={PreFourPics}
           options={{
             title: "How to Play?",
-            headerLeft: null
+            headerLeft: null,
           }}
         />
         <Stack.Screen
@@ -147,7 +147,7 @@ function App() {
           component={FourPicsGame}
           options={{
             title: "Let's Play 4-Pics 1-Word!",
-            headerLeft: null
+            headerLeft: null,
           }}
         />
       </Stack.Navigator>
