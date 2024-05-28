@@ -32,7 +32,7 @@ function MainCPR({ navigation }) {
   const [trainingActive, setTrainingActive] = useState(true);
 
   useEffect(() => {
-    const newSocket = io("http://192.168.68.102:5000", {
+    const newSocket = io("http://192.168.38.2:5000", {
       transports: ["websocket"],
     });
     setSocket(newSocket);
@@ -174,7 +174,7 @@ function MainCPR({ navigation }) {
     } catch (error) {
       console.error("Error resetting elapsed time:", error);
     }
-    const url = "http://192.168.68.102:5000/restart";
+    const url = "http://192.168.38.2:5000/restart";
     try {
       const response = await fetch(url);
       if (response.ok) {
