@@ -78,7 +78,7 @@ function DashboardScreen({ navigation }) {
             <Text style={styles.buttonText}>4-Pics & 1-Word</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={handleMorePress}>
-            <Text style={styles.buttonText}>Learn More!</Text>
+            <Text style={styles.buttonText}>About Us & More Info</Text>
           </TouchableOpacity>
         </View>
       </View>

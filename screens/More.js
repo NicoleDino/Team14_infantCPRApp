@@ -1,6 +1,6 @@
 // More.js
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Linking, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Linking, Alert, Image, FlatList } from 'react-native';
 
 function More({ navigation }) {
   const handleBackToDashboardPress = () => {
@@ -30,25 +30,55 @@ function More({ navigation }) {
     Linking.openURL(feedbackFormUrl);
   };
 
+  const content = [
+    { key: 'aboutTitle', type: 'title', text: 'About Us' },
+    { key: 'groupImage', type: 'image', src: require("../assets/groupie.png") },
+    { key: 'aboutText', type: 'text', text: 'InfanTech was founded to revolutionize infant CPR training. Our team consists of five dedicated Computer Engineers: Nicole Rosae Diño, Emmanuel Pascua, Azzelle Leira Rodil, and Ervin Yano. Each member brings unique expertise in Systems Administration, Technopreneurship, and Railway Engineering., who are proud students of the Technological Institute of the Philippines, Quezon City.' },
+    { key: 'separator1', type: 'separator' },
+    { key: 'resourcesTitle', type: 'title', text: 'Additional Resources:' },
+    { key: 'resource1', type: 'link', text: '🍼 CPR for babies under 12 months: in pictures', url: 'https://raisingchildren.net.au/newborns/safety/cpr/cpr-for-babies' },
+    { key: 'resource2', type: 'link', text: '👶 Child & Baby CPR - Red Cross', url: 'https://www.redcross.org/take-a-class/cpr/performing-cpr/child-baby-cpr' },
+    { key: 'resource3', type: 'link', text: '🎥 Additional Infant CPR Video Tutorial/Training', url: 'https://www.youtube.com/watch?v=tK-gwp4dPmw' },
+    { key: 'separator2', type: 'separator' },
+    { key: 'feedbackTitle', type: 'title', text: 'Feedback Form:' },
+    { key: 'feedbackLink', type: 'link', text: '✉️ Provide your App Feedback', url: 'https://forms.gle/1P6wD72uCGcoTZUp8' },
+    { key: 'backButton', type: 'button', text: 'Back to Dashboard' },
+  ];
+
+  const renderItem = ({ item }) => {
+    switch (item.type) {
+      case 'title':
+        return <Text style={styles.title}>{item.text}</Text>;
+      case 'image':
+        return <Image source={item.src} style={styles.groupImage} />;
+      case 'text':
+        return <Text style={styles.aboutText}>{item.text}</Text>;
+      case 'separator':
+        return <View style={styles.separator} />;
+      case 'link':
+        return (
+          <TouchableOpacity onPress={() => handleOpenLink(item.url)}>
+            <Text style={styles.link}>{item.text}</Text>
+          </TouchableOpacity>
+        );
+      case 'button':
+        return (
+          <TouchableOpacity style={styles.backButton} onPress={handleBackToDashboardPress}>
+            <Text style={styles.backButtonText}>{item.text}</Text>
+          </TouchableOpacity>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Additional Resources:</Text>
-      <TouchableOpacity onPress={() => handleOpenLink('https://raisingchildren.net.au/newborns/safety/cpr/cpr-for-babies')}>
-        <Text style={styles.link}>🍼 CPR for babies under 12 months: in pictures</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleOpenLink('https://www.redcross.org/take-a-class/cpr/performing-cpr/child-baby-cpr')}>
-        <Text style={styles.link}>👶 Child & Baby CPR - Red Cross</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleOpenLink('https://www.youtube.com/watch?v=tK-gwp4dPmw')}>
-        <Text style={styles.link}>🎥 Additional Infant CPR Video Tutorial/Training</Text>
-      </TouchableOpacity>
-      <Text style={styles.title}>Feedback Form:</Text>
-      <TouchableOpacity onPress={handleOpenFeedbackForm}>
-        <Text style={styles.link}>✉️ Provide your Feedback</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.backButton} onPress={handleBackToDashboardPress}>
-        <Text style={styles.backButtonText}>Back to Dashboard</Text>
-      </TouchableOpacity>
+      <FlatList
+        data={content}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.key}
+      />
     </View>
   );
 }
@@ -59,8 +89,35 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#FCE4EC',
   },
+  aboutTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    marginTop: 10,
+    color: '#FF7FAA',
+    textAlign: 'center',
+  },
+  groupImage: {
+    width: '100%',
+    height: 300,
+    resizeMode: 'cover',
+    marginBottom: 10,
+    borderRadius: 15,
+  },
+  aboutText: {
+    fontSize: 16,
+    color: 'gray',
+    marginBottom: 5,
+    textAlign: 'justify',
+  },
+  separator: {
+    borderBottomWidth: 1,
+    borderBottomColor: 'gray',
+    marginBottom: 20,
+    marginTop: 20,
+  },
   title: {
-    fontSize: 20,
+    fontSize: 23,
     fontWeight: 'bold',
     marginBottom: 10,
     marginTop: 10,

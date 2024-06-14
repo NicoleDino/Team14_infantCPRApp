@@ -106,7 +106,7 @@ function App() {
           name="More"
           component={More}
           options={{
-            title: "More Resources",
+            title: "About Us and More Resources",
             headerLeft: null,
           }}
         />
