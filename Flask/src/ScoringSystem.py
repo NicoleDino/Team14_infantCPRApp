@@ -7,9 +7,9 @@ class ScoringSystem:
 
     def __init__(self):
         # Scoring configurations
-        self.maxNumOfCompressions = 5  # default: 30
+        self.maxNumOfCompressions = 30  # default: 30
         self.maxNumOfRescueBreaths = 2  # default: 2
-        self.maxCycles = 2  # default: 5
+        self.maxCycles = 1  # default: 5
 
         # Initiates scores
         self.reset_scoring()

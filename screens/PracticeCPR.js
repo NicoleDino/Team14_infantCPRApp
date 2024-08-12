@@ -29,7 +29,7 @@ function PracticeCPR({ navigation }) {
   const [trainingActive, setTrainingActive] = useState(true);
 
   useEffect(() => {
-    const newSocket = io("http://192.168.68.104:5000", {
+    const newSocket = io("http://192.168.68.111:5000", {
       transports: ["websocket"],
     });
     setSocket(newSocket);
@@ -144,7 +144,7 @@ function PracticeCPR({ navigation }) {
   const restart = async () => {
     setTimer(0);
     setTrainingActive(true); // Restart training
-    const url = "http://192.168.68.104:5000/restart";
+    const url = "http://192.168.68.111:5000/restart";
     try {
       const response = await fetch(url);
       if (response.ok) {
